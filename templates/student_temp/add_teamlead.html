@@ -1,0 +1,34 @@
+{% extends 'student_temp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="width:400px; margin:0px auto; height:500px; padding-top:50px">
+<h1>
+    Add New TeamLead
+</h1>    
+<br>
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="from-group">
+        <label for="email">TeamLead Name:</label>
+        <input type="text" class="form-control" id="email" placeholder="Enter TeamLead Name" name='tb_tname'>
+        
+    </div>
+    <div class="from-group">
+        <label for="email">Phone_no:</label>
+        <input type="text" class="form-control" id="email" placeholder="Enter Phone No" name='tb_phone_no'>
+    </div>
+    <br>  
+    <button type="submit" class="btn btn-default">Add Record</button>
+
+</form>
+<br>
+
+<h1 style="color:green">
+
+    {{ result_message }}
+</h1>
+
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'student_temp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="width:400px; margin:0px auto; height:500px; padding-top:50px">
+<h1>
+    Add New Department
+</h1>    
+<br>
+<form method="POST">
+    {% csrf_token %}
+    <div class="from-group">
+        <label for="email">Department Name:</label>
+        <input type="text" class="form-control" id="email" placeholder="Enter Department name" name='tb_dname'>
+        
+    </div>
+    <div class="from-group">
+        <label for="email">Location:</label>
+        <input type="text" class="form-control" id="email" placeholder="Enter Location" name='tb_location'>
+    </div>
+    <br>  
+    <button type="submit" class="btn btn-default">Add Record</button>
+</form>
+<br>
+
+<h1 style="color:green">
+    {{ result_message }}
+</h1>
+
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'student_temp/base.html' %}
+
+{% load static %}
+{% block content %}
+<body>
+<div style= "height: 50px; background-color:burlywood;">
+    <a href ="../Home/">Home</a>
+    <a href="../aboutus/">About us</a>
+    <a href="../login/">Login</a>
+</div> 
+<div style= "height:700px;">
+    <div style= "width: 20%; margin:auto; height:1000px; background-color:darkmagenta; float:left;">
+
+</div>
+
+<div style="width:400px; margin:auto; height: 300px; padding-top:auto;">
+    <form method="POST">
+        {% csrf_token %}
+    Name:
+    <input type="text" name="tb_name"/>
+    <br>
+    <br>
+    Gender:
+    <input type = "radio" name = "tb_gender" value = "male"> Male
+    <input type = "radio" name = "tb_gender" value = "female"> Female
+    <br>
+    <br>
+    E-mail:
+    <input name= "tb_email" type="text" placeholder="Enter email address">
+    <br>
+    <br>
+    Password:
+    <input type= "password" name="tb_password"/>
+    <br>
+    <br>
+    Age:
+    <input name="tb_age" type="number" placeholder="Enter Age">
+    <br>
+    <br>
+    DOB:
+        <input name="td_dob" type="date" placeholder="Enter Dob">
+    <br>
+    <br>
+    City:
+    <select name="drp_city">
+         <option value='delhi'>Delhi</option>
+         <option value='nahar'>Nahar</option>
+         <option value='nabha'>Nabha</option>
+    </select>
+    <br>
+    <br>
+    Course:
+    <input type = "checkbox" name = "cb_course" value = "on"> Maths
+    <input type = "checkbox" name = "cb_course1" value = "on"> Physics
+    <br>
+    <br>
+    Address:
+    <textarea rows = "5" cols = "50" name = "tb_Address" placeholder= "Enter Address">
+    </textarea>
+    <br>
+    <br>
+    Mobile_no:
+    <input type="number" name="tb_mobile" />
+    <br>
+    <br>
+    Submit:
+    <input type="submit">
+
+    </form>
+</div>
+</div>
+
+</body>
+{% endblock %}

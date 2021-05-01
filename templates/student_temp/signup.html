@@ -1,0 +1,16 @@
+
+{% extends 'student_temp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="width:400px; margin:0px auto; height:auto; padding-top:50px">
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {{ sign_up.as_table }}
+    </table>
+    <input type="submit" value="login">
+</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'student_temp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div style="width:800px; margin:auto; height:800px; padding-top:50px">
+    <form method="POST">
+        {% csrf_token %}
+<div>
+    Select your Department:
+    <select name='drp_department'>
+        {% for dep in departments %}
+        <option vlaue="{{ dep.id }}">
+            {{ dep.name }}
+        </option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Show Employee" class="btn btn-info">
+</div>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            Employee ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Department Name
+        </th>
+        <th>
+            TeamLead Name
+        </th>
+        <th></th>
+    </tr>
+
+    {% for obj in emps %}
+    <tr>
+        <td>
+            {{obj.id}}
+        </td>
+        <td>
+            {{obj.name}}
+        </td>
+        <td>
+            {{obj.department}}
+        </td>
+        <td>
+            {{obj.teamlead}}
+        </td>
+        <td>
+            <a class="btn btn-primary" href="../update/?i={{obj.id}}">Edit</a> <a class="btn btn-primary" href="../delete/?empid={{obj.id}}" onclick="return confirm ('Do you want to delete?')">Delete</a> <a class="btn btn-primary" href="../details/?id={{obj.id}}">View More</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </table>
+
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

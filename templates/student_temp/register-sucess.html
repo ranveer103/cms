@@ -1,0 +1,32 @@
+{% extends 'student_temp/base.html' %}
+{% load static %}
+
+{% block content %}
+<div style="width:400px; margin:0px auto; height:auto; padding-top:50px">
+<h1> Your have register sucessfully and your entered data are </h1>
+<p>
+    Name:{{name}}
+</p>
+<p>
+    Email: {{ email }}
+</p>
+<p>
+    Password: {{ password }}
+</p>
+<p>
+    Age:{{ age }}
+</p>
+<p>
+    Dob: {{ dob }}
+</p>
+<p>
+    Gender: {{ gender }}
+</p>
+<p>
+    Courses: {{ course1 }} and {{ course2 }}
+</p>
+<p>
+    City: {{ city }}
+</p>
+</div>
+{% endblock %}

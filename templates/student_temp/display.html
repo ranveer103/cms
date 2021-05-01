@@ -1,0 +1,36 @@
+{% extends 'student_temp/base.html' %}
+{% load static %}
+{% block content %}
+<div style= "width: 20%; margin:auto; height:1000px;"> 
+    <h1>
+        Your entered details are:
+        <Br>
+            Name: {{name}}
+            <br>
+            <br>
+            Gender:{{gender}}
+            <br>
+            E-mail:{{email}}
+            <br>
+            Age: {{age}}
+            <br>
+            DOB: {{dob}}
+            <br>
+            City: {{city}}
+            <br>
+            Course:{{course}}
+            <br>
+            {% if course1 is not none%}
+            course1 : {{ course1 }}
+            {% endif %}
+            <br>
+            Address:{{address}}
+            <br>
+            Mobile_no: {{mobileno}}
+            <br>
+            Submit: {{submit}}
+
+</div>
+
+ 
+{% endblock %}
