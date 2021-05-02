@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+     {% load static %}
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+</head> 
+<body>
+     <div style= "height: 50px; background-color:burlywood;">
+          <a href ="../Home/">Home</a>
+          <a href="../aboutus/">About us</a>
+          <a href="../login/">Login</a>
+     </div> 
+     <div style= "height: 550px;">
+          <div style= "width: 20%; height:700px; background-color:darkmagenta; float:left;">
+
+          </div>
+
+          <div style="width:80%; height: 550px; float: left;">
+               <h1>
+                    Sign Up
+               </h1>
+               <form method="POST">
+                    {% csrf_token %}
+                    Name:
+                    <input name= "tbname" type= "text" placeholder="Enter name">
+                    <br>
+                     <br>
+                    Email:
+                    <input name= "tbemail" type="text" placeholder="Enter email">
+                    <br> 
+                    <br>
+                    <input type="submit" value="submit">
+               </form>
+<h1>
+     Your entered details are:
+     <Br>
+          Name: {{name}}
+          <br>
+          Email:
+          {{email}}
+</h1>              
+                     
+     </div>
+</div>
+<div style="height: 50px; background-color:cadetblue;"></div>
+
+
+</body>
+</html>

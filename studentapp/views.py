@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .forms import*
-from .models import*
+from .forms import *
+from .models import *
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
+
 # Create your views here.
 
 def home_view(request):
@@ -69,7 +73,7 @@ def sign_view(request):
             return render(request,'student_temp/sign.html',context)
     return render(request,"student_temp/sign.html")
     
-def login_view(request):
+def login1_view(request):
     if request.method =='POST':
         name = request.POST['tbname']
         email = request.POST['tbemail']
@@ -80,43 +84,120 @@ def login_view(request):
         return render(request,'student_temp/login.html',context)
     else:
         return render(request,'student_temp/login.html') 
+
+def login_view(request):
+    login_form = LoginForm()
+    if(request.method=='POST'):
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            uname = login_form.cleaned_data['user_name']
+            pwd = login_form.cleaned_data['user_pass']
+            user = authenticate(username=uname, password=pwd)
+            if user is not None:
+                login(request, user)
+                return redirect('../emps')
+
+            else:
+                context = {
+                    'login_form' : login_form,
+                    'error_msg' : 'Invalid id and password'
+                        }
+                return render(request,'student_temp/login.html',context)
+                
+    context = {
+        'login_form' : login_form
+    }
+    return render(request,'student_temp/login.html',context)   
+    
 def signup_view(request):
     if request.method == 'POST':
         signup_form = SignupForm(request.POST)
         if signup_form.is_valid():
-            name = signup_form.cleaned_data['name']
+            user_name = signup_form.cleaned_data['username']
+            first_name = signup_form.cleaned_data['first_name']
+            last_name = signup_form.cleaned_data['last_name']
             email = signup_form.cleaned_data['email']
             password = signup_form.cleaned_data['password']
-            dob = signup_form.cleaned_data['dob']
-            age = signup_form.cleaned_data['age']
-            gender = signup_form.cleaned_data['gender']
-            city = signup_form.cleaned_data['city']
-            course1 = signup_form.cleaned_data['course1']
-            course2 = signup_form.cleaned_data['course2']
-            context={
-            'name' : name,
-            'email' : email,
-            'password' : password,
-            'dob' : dob,
-            'age' : age,
-            'gender' : gender,
-            'city' : city,
-            'course1' : course1,
-            'course2' : course2,
-            }
-            return render(request,'student_temp/register-sucess.html', context)
-        else:
-            context = {
-                'sign_up':signup_form
-                }
-            return render(request,'student_temp/signup.html', context)
+            password = make_password(password)
+            user = User.objects.create_user(username= user_name,
+                                            first_name= first_name,
+                                            last_name = last_name,
+                                            email= email,
+                                            password = password
+                                            )
+            user.save()
+            login(request, user)
+            return redirect('../emps')
+
+
+            
+            # dob = signup_form.cleaned_data['dob']
+            # age = signup_form.cleaned_data['age']
+            # gender = signup_form.cleaned_data['gender']
+            # city = signup_form.cleaned_data['city']
+            # course1 = signup_form.cleaned_data['course1']
+            # course2 = signup_form.cleaned_data['course2']
+            # context={
+            # 'name' : name,
+            # 'email' : email,
+            # 'password' : password,
+            # 'dob' : dob,
+            # 'age' : age,
+            # 'gender' : gender,
+            # 'city' : city,
+            # 'course1' : course1,
+            # 'course2' : course2,
+            # }
+            # return render(request,'student_temp/register-sucess.html', context)
+        # else:
+        #     context = {
+        #         'sign_up':signup_form
+        #         }
+        #     return render(request,'student_temp/signup.html', context)
     else:
         signup_form = SignupForm()
         context = {
             'sign_up':signup_form
         }
-        return render(request,'student_temp/signup.html', context)
+        return render(request,'student_temp/signup.html',context)
 
+# def signup_view(request):
+#     if request.method == 'POST':
+#         signup_form = SignupForm(request.POST)
+#         if signup_form.is_valid():
+#             name = signup_form.cleaned_data['name']
+#             email = signup_form.cleaned_data['email']
+#             password = signup_form.cleaned_data['password']
+#             dob = signup_form.cleaned_data['dob']
+#             age = signup_form.cleaned_data['age']
+#             gender = signup_form.cleaned_data['gender']
+#             city = signup_form.cleaned_data['city']
+#             course1 = signup_form.cleaned_data['course1']
+#             course2 = signup_form.cleaned_data['course2']
+#             context={
+#             'name' : name,
+#             'email' : email,
+#             'password' : password,
+#             'dob' : dob,
+#             'age' : age,
+#             'gender' : gender,
+#             'city' : city,
+#             'course1' : course1,
+#             'course2' : course2,
+#             }
+#             return render(request,'student_temp/register-sucess.html', context)
+#         else:
+#             context = {
+#                 'sign_up':signup_form
+#                 }
+#             return render(request,'student_temp/signup.html', context)
+#     else:
+#         signup_form = SignupForm()
+#         context = {
+#             'sign_up':signup_form
+#         }
+#         return render(request,'student_temp/signup.html', context)
+    
 # def orm_practice(request):
 #     #qs = EmployeeDetails.objects.all()
 #     qs = EmployeeDetails.objects.filter(id_lt=10)
@@ -234,6 +315,18 @@ def more_details_view(request):
     }
     return render(request,'student_temp/details.html',context)
 
+def update_view(request):
+    emp_id = request.GET.get('i')
+    emp_obj = Employee.objects.get(id=emp_id)
+    context = {
+    'emp' : emp_obj,
+    }
+    return render(request,'student_temp/update.html',context)
+
+def logout_view(request):
+    logout(request)
+    return redirect('../login')
+    
 
 
 

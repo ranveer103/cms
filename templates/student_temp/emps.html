@@ -1,4 +1,4 @@
-{% extends 'student_temp/base.html' %}
+{% extends 'student_temp/base2.html' %}
 {% load static %}
 
 {% block content %}
@@ -51,11 +51,11 @@
             {{obj.teamlead}}
         </td>
         <td>
-            <a class="btn btn-primary" href="../update/?i={{obj.id}}">Edit</a> <a class="btn btn-primary" href="../delete/?empid={{obj.id}}" onclick="return confirm ('Do you want to delete?')">Delete</a> <a class="btn btn-primary" href="../details/?id={{obj.id}}">View More</a>
+            <a class="btn btn-primary" href="../update/?i=3">Edit</a> <a class="btn btn-primary" href="../delete/?empid={{obj.id}}" onclick="return confirm ('Do you want to delete?')">Delete</a> <a class="btn btn-primary" href="../details/?id={{obj.id}}">View More</a>
         </td>
     </tr>
     {% endfor %}
-    </table>
+</table>
 
 </div>
 {% endblock %}
